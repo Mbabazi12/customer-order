@@ -16,4 +16,8 @@ public class Product {
     public String getProductName() {
         return productName;
     }
+
+    public int getProductId() {
+        return productId;
+    }
 }
