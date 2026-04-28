@@ -4,10 +4,9 @@ import java.util.Set;
 import java.util.Map;
 
 public class Main {
-    // Collections with explanations
-    public static Map<Integer, Product> productsById = new HashMap<>(); // Fast lookup by ID
-    public static Set<Customer> allCustomers = new HashSet<>(); // Uniqueness
-    public static Map<Integer, List<Order>> customerOrders = new HashMap<>(); // One-to-many
+    public static Map<Integer, Product> productsById = new HashMap<>();
+    public static Set<Customer> allCustomers = new HashSet<>();
+    public static Map<Integer, List<Order>> customerOrders = new HashMap<>();
     public static Customer currentCustomer;
     public static int nextCustomerId = 1;
     public static int nextOrderId = 1;
@@ -15,15 +14,18 @@ public class Main {
     private static final String MANAGER_PASSWORD = "admin123";
 
     public static void main(String[] args) {
-        initializeProducts();
+        DataStore.loadAll();
+        seedProductsIfEmpty();
         roleLoop();
+        DataStore.saveAll();
         scanner.close();
     }
 
-    private static void initializeProducts() {
-        productsById.put(101, new Product(101, "Laptop", 800000));
-        productsById.put(102, new Product(102, "Phone", 100000));
-        productsById.put(103, new Product(103, "Speaker", 50000));
+    private static void seedProductsIfEmpty() {
+        if (!productsById.isEmpty()) return;
+        productsById.put(101, new Product(101, "Laptop",  800000));
+        productsById.put(102, new Product(102, "Phone",   100000));
+        productsById.put(103, new Product(103, "Speaker",  50000));
     }
 
     private static void roleLoop() {

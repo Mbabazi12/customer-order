@@ -46,9 +46,10 @@ public class Order {
         System.out.println("---------------------------");
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
+    public int getOrderId()    { return orderId; }
+    public int getCustomerId() { return customer.getCustomerId(); }
+    public int getProductId()  { return product.getProductId(); }
+    public int getQuantity()   { return quantity; }
 
     public static void viewAll(Map<Integer, List<Order>> customerOrders) {
         boolean has = false;
