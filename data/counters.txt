@@ -1,0 +1,2 @@
+nextCustomerId=1
+nextOrderId=1
