@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.ManagerAuthController"
+      alignment="CENTER" spacing="18"
+      prefWidth="380" prefHeight="300"
+      style="-fx-background-color: #1e1e2e; -fx-padding: 40;">
+
+    <Label text="🔑 Manager Login"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #cdd6f4;"/>
+
+    <PasswordField fx:id="pfPassword" promptText="Enter password" prefWidth="260" prefHeight="36"
+                   style="-fx-background-color: #313244; -fx-text-fill: #cdd6f4; -fx-prompt-text-fill: #6c7086; -fx-background-radius: 6;"/>
+
+    <Label fx:id="lblError" text="" style="-fx-text-fill: #f38ba8; -fx-font-size: 12px;"/>
+
+    <HBox spacing="12" alignment="CENTER">
+        <Button text="Login" onAction="#onLogin" prefWidth="110" prefHeight="36"
+                style="-fx-background-color: #a6e3a1; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+        <Button text="← Back" onAction="#onBack" prefWidth="90" prefHeight="36"
+                style="-fx-background-color: #585b70; -fx-text-fill: #cdd6f4; -fx-background-radius: 8;"/>
+    </HBox>
+</VBox>

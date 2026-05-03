@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.ManagerStockController"
+      spacing="12" prefWidth="580" prefHeight="460"
+      style="-fx-background-color: #1e1e2e; -fx-padding: 24;">
+
+    <Label text="🏪 Stock Overview"
+           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #cdd6f4;"/>
+
+    <TableView fx:id="tableStock" VBox.vgrow="ALWAYS"
+               style="-fx-background-color: #181825; -fx-border-color: #313244;">
+        <columns>
+            <TableColumn fx:id="colId"       text="ID"       prefWidth="60"/>
+            <TableColumn fx:id="colName"     text="Name"     prefWidth="160"/>
+            <TableColumn fx:id="colPrice"    text="Price"    prefWidth="100"/>
+            <TableColumn fx:id="colStock"    text="Stock"    prefWidth="80"/>
+            <TableColumn fx:id="colCategory" text="Category" prefWidth="120"/>
+        </columns>
+    </TableView>
+
+    <Button text="← Back" onAction="#onBack"
+            style="-fx-background-color: transparent; -fx-text-fill: #a6adc8; -fx-underline: true;"/>
+</VBox>

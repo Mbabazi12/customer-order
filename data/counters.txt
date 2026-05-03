@@ -1,2 +1,2 @@
-nextCustomerId=1
+nextCustomerId=2
 nextOrderId=1

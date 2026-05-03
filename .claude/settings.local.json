@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Recurse -Force)",
+      "Bash(Select-Object FullName)",
+      "Bash(Sort-Object FullName)",
+      "PowerShell(cd \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\"; Get-ChildItem -Recurse | ForEach-Object { $_.FullName })",
+      "Bash(Remove-Item -Force \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\Customer.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\CustomerHandler.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\DataStore.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\InvalidOrderException.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\InvalidUserException.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\Main.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\Manager.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\MenuHandler.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\Order.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\OrderStatus.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\Person.java\", \"c:\\\\Users\\\\user\\\\IdeaProjects\\\\customer-order\\\\src\\\\Product.java\")"
+    ]
+  }
+}

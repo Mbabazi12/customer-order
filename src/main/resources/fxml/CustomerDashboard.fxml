@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.CustomerDashboardController"
+      alignment="CENTER" spacing="14"
+      prefWidth="420" prefHeight="440"
+      style="-fx-background-color: #1e1e2e; -fx-padding: 36;">
+
+    <Label fx:id="lblWelcome" text="Welcome!"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #cdd6f4;"/>
+
+    <Region prefHeight="8"/>
+
+    <Button text="🛍  View Menu / Products" onAction="#onViewMenu"
+            prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #89b4fa; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+    <Button text="🛒  Place New Order" onAction="#onPlaceOrder"
+            prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #a6e3a1; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+    <Button text="📋  View Past Orders" onAction="#onViewOrders"
+            prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #cba6f7; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+    <Button text="❌  Cancel Pending Order" onAction="#onCancelOrder"
+            prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #fab387; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+    <Button text="🔍  Filter Orders" onAction="#onFilterOrders"
+            prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #f9e2af; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+    <Region prefHeight="6"/>
+
+    <Button text="Logout" onAction="#onLogout" prefWidth="120"
+            style="-fx-background-color: #f38ba8; -fx-font-size: 12px; -fx-background-radius: 6;"/>
+</VBox>
