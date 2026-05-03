@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.WelcomeController"
+      alignment="CENTER" spacing="20"
+      prefWidth="420" prefHeight="340"
+      style="-fx-background-color: #1e1e2e; -fx-padding: 40;">
+
+    <Label text="Customer Order System"
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #cdd6f4;"/>
+
+    <Region prefHeight="10"/>
+
+    <Button fx:id="btnCustomer" text="Customer"
+            onAction="#onCustomer" prefWidth="200" prefHeight="42"
+            style="-fx-background-color: #89b4fa; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+    <Button fx:id="btnManager" text="Manager"
+            onAction="#onManager" prefWidth="200" prefHeight="42"
+            style="-fx-background-color: #a6e3a1; -fx-font-size: 14px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+    <Button text="Exit" onAction="#onExit" prefWidth="200"
+            style="-fx-background-color: #f38ba8; -fx-font-size: 13px; -fx-background-radius: 8;"/>
+</VBox>

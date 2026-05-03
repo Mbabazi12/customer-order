@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.CustomerAuthController"
+      alignment="CENTER" spacing="14"
+      prefWidth="420" prefHeight="480"
+      style="-fx-background-color: #1e1e2e; -fx-padding: 36;">
+
+    <Label text="Customer Login / Register"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #cdd6f4;"/>
+
+    <Label text="Enter your name to login, or fill all fields to register."
+           style="-fx-font-size: 11px; -fx-text-fill: #a6adc8;" wrapText="true"/>
+
+    <Region prefHeight="6"/>
+
+    <TextField fx:id="tfName"    promptText="Full Name"    prefWidth="300" prefHeight="36"
+               style="-fx-background-color: #313244; -fx-text-fill: #cdd6f4; -fx-prompt-text-fill: #6c7086; -fx-background-radius: 6;"/>
+    <TextField fx:id="tfEmail"   promptText="Email"        prefWidth="300" prefHeight="36"
+               style="-fx-background-color: #313244; -fx-text-fill: #cdd6f4; -fx-prompt-text-fill: #6c7086; -fx-background-radius: 6;"/>
+    <TextField fx:id="tfPhone"   promptText="Phone Number" prefWidth="300" prefHeight="36"
+               style="-fx-background-color: #313244; -fx-text-fill: #cdd6f4; -fx-prompt-text-fill: #6c7086; -fx-background-radius: 6;"/>
+    <TextField fx:id="tfAddress" promptText="Address"      prefWidth="300" prefHeight="36"
+               style="-fx-background-color: #313244; -fx-text-fill: #cdd6f4; -fx-prompt-text-fill: #6c7086; -fx-background-radius: 6;"/>
+
+    <Label fx:id="lblStatus" text="" wrapText="true" prefWidth="300"
+           style="-fx-text-fill: #f38ba8; -fx-font-size: 12px;"/>
+
+    <HBox spacing="12" alignment="CENTER">
+        <Button text="Login"    onAction="#onLogin"    prefWidth="120" prefHeight="36"
+                style="-fx-background-color: #89b4fa; -fx-font-weight: bold; -fx-background-radius: 6;"/>
+        <Button text="Register" onAction="#onRegister" prefWidth="120" prefHeight="36"
+                style="-fx-background-color: #a6e3a1; -fx-font-weight: bold; -fx-background-radius: 6;"/>
+    </HBox>
+
+    <Button text="← Back" onAction="#onBack" prefWidth="80"
+            style="-fx-background-color: transparent; -fx-text-fill: #a6adc8; -fx-underline: true;"/>
+</VBox>

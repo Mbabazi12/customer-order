@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.ManagerDashboardController"
+      alignment="CENTER" spacing="14"
+      prefWidth="420" prefHeight="480"
+      style="-fx-background-color: #1e1e2e; -fx-padding: 36;">
+
+    <Label text="⚙ Manager Dashboard"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #cdd6f4;"/>
+
+    <Region prefHeight="8"/>
+
+    <Button text="👥  View All Customers"   onAction="#onViewCustomers"   prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #89b4fa; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+    <Button text="📦  View All Orders"      onAction="#onViewOrders"      prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #cba6f7; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+    <Button text="🏪  View Stock"           onAction="#onViewStock"       prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #a6e3a1; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+    <Button text="🔍  Search Customer"      onAction="#onSearchCustomer"  prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #f9e2af; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+    <Button text="🔄  Update Order Status"  onAction="#onUpdateStatus"    prefWidth="260" prefHeight="40"
+            style="-fx-background-color: #fab387; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+
+    <Region prefHeight="6"/>
+
+    <Button text="Logout" onAction="#onLogout" prefWidth="120"
+            style="-fx-background-color: #f38ba8; -fx-font-size: 12px; -fx-background-radius: 6;"/>
+</VBox>

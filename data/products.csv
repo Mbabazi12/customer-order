@@ -1,4 +1,4 @@
-productId,name,price
-101,Laptop,800000.0
-102,Phone,100000.0
-103,Speaker,50000.0
+productId,name,price,stock,category
+101,Laptop,800000.0,100,General
+102,Phone,100000.0,100,General
+103,Speaker,50000.0,100,General
