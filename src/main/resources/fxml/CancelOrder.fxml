@@ -5,32 +5,36 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="controller.CancelOrderController"
-      spacing="14" prefWidth="560" prefHeight="440"
-      style="-fx-background-color: #1e1e2e; -fx-padding: 24;">
+      styleClass="page" spacing="14">
 
-    <Label text="❌ Cancel Pending Order"
-           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #cdd6f4;"/>
-
+    <!-- Header -->
+    <Label text="Cancel Pending Order" styleClass="page-title"/>
     <Label text="Select a pending order below and click Cancel Order."
-           style="-fx-text-fill: #a6adc8; -fx-font-size: 12px;"/>
+           styleClass="subtitle"/>
 
-    <TableView fx:id="tablePending" VBox.vgrow="ALWAYS"
-               style="-fx-background-color: #181825; -fx-border-color: #313244;">
+    <!-- Pending orders table -->
+    <TableView fx:id="tablePending" styleClass="table-view" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn fx:id="colOrderId" text="Order ID" prefWidth="80"/>
-            <TableColumn fx:id="colProduct" text="Product"  prefWidth="160"/>
-            <TableColumn fx:id="colQty"     text="Qty"      prefWidth="60"/>
-            <TableColumn fx:id="colTotal"   text="Total"    prefWidth="100"/>
-            <TableColumn fx:id="colStatus"  text="Status"   prefWidth="100"/>
+            <TableColumn fx:id="colOrderId" text="Order ID" prefWidth="90"/>
+            <TableColumn fx:id="colProduct" text="Product"  prefWidth="200"/>
+            <TableColumn fx:id="colQty"     text="Qty"      prefWidth="70"/>
+            <TableColumn fx:id="colTotal"   text="Total"    prefWidth="110"/>
+            <TableColumn fx:id="colStatus"  text="Status"   prefWidth="110"/>
         </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
     </TableView>
 
-    <HBox spacing="12" alignment="CENTER_LEFT">
-        <Button text="❌ Cancel Selected Order" onAction="#onCancelSelected" prefHeight="36"
-                style="-fx-background-color: #f38ba8; -fx-font-weight: bold; -fx-background-radius: 8;"/>
-        <Label fx:id="lblMsg" text="" style="-fx-text-fill: #a6e3a1; -fx-font-size: 12px;"/>
+    <!-- Action row -->
+    <HBox styleClass="toolbar">
+        <Button text="Cancel Selected Order" onAction="#onCancelSelected"
+                styleClass="btn-danger" prefHeight="38"/>
+        <Label fx:id="lblMsg" text="" styleClass="lbl-success"
+               style="-fx-padding: 0 0 0 14;"/>
     </HBox>
 
-    <Button text="← Back" onAction="#onBack"
-            style="-fx-background-color: transparent; -fx-text-fill: #a6adc8; -fx-underline: true;"/>
+    <!-- Back -->
+    <Button text="← Back" onAction="#onBack" styleClass="btn-ghost"/>
+
 </VBox>

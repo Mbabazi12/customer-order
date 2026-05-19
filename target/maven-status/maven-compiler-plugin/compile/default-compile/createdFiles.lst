@@ -1,3 +1,6 @@
+dao\OrderDAO.class
+db\DatabaseInitializer.class
+dao\CustomerDAO.class
 exception\InvalidOrderException.class
 controller\ManagerDashboardController.class
 service\DataStore.class
@@ -10,15 +13,17 @@ controller\WelcomeController.class
 controller\MyOrdersController.class
 service\AppStore.class
 controller\ManagerAuthController.class
-controller\OrderController.class
 model\Customer.class
 controller\AlertHelper.class
+dao\GenericDAO.class
 app\MainApp.class
 controller\CustomerDashboardController.class
 controller\CustomerAuthController.class
 controller\ManagerStockController.class
+db\Connect.class
 controller\ProductController.class
 model\OrderStatus.class
 controller\CancelOrderController.class
 model\Order.class
+dao\ProductDAO.class
 exception\InvalidUserException.class

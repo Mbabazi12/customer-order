@@ -1,167 +1,167 @@
 package service;
 
-import model.*;
-import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import dao.CustomerDAO;
+import dao.OrderDAO;
+import dao.ProductDAO;
+import model.Customer;
+import model.Order;
+import model.Product;
+
+/**
+ * DataStore is responsible for loading and saving all application data.
+ *
+ * Previously used CSV files — now uses PostgreSQL via DAO classes.
+ * The rest of the application (controllers, AppStore) is unchanged.
+ */
 public class DataStore {
 
-    private static final String DATA_DIR       = "data";
-    private static final String PRODUCTS_FILE  = DATA_DIR + "/products.csv";
-    private static final String CUSTOMERS_FILE = DATA_DIR + "/customers.csv";
-    private static final String ORDERS_FILE    = DATA_DIR + "/orders.csv";
-    private static final String COUNTERS_FILE  = DATA_DIR + "/counters.txt";
+    // DAO instances — one per entity
+    private static final CustomerDAO customerDAO = new CustomerDAO();
+    private static final ProductDAO  productDAO  = new ProductDAO();
+    private static final OrderDAO    orderDAO    = new OrderDAO();
 
+    private DataStore() {}
+
+    // =========================================================================
+    // LOAD ALL — called once at startup to populate AppStore from the database
+    // =========================================================================
     public static void loadAll() {
-        new File(DATA_DIR).mkdirs();
         loadProducts();
         loadCustomers();
         loadOrders();
         loadCounters();
     }
 
+    // =========================================================================
+    // SAVE ALL — kept for compatibility; individual saves happen in controllers
+    // =========================================================================
     public static void saveAll() {
-        new File(DATA_DIR).mkdirs();
+        // Products and customers are saved immediately when created/updated.
+        // This method is kept so MainApp.stop() still compiles without changes.
+        // Stock changes are persisted in real-time via saveProducts().
         saveProducts();
-        saveCustomers();
-        saveOrders();
-        saveCounters();
     }
+
+    // =========================================================================
+    // PRODUCTS
+    // =========================================================================
 
     private static void loadProducts() {
-        File f = new File(PRODUCTS_FILE);
-        if (!f.exists()) return;
-        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-            String line; boolean header = true;
-            while ((line = br.readLine()) != null) {
-                if (header) { header = false; continue; }
-                if (line.trim().isEmpty()) continue;
-                String[] p = line.split(",", -1);
-                if (p.length < 3) continue;
-                int    id       = Integer.parseInt(p[0].trim());
-                String name     = p[1].trim();
-                double price    = Double.parseDouble(p[2].trim());
-                int    stock    = p.length > 3 ? Integer.parseInt(p[3].trim()) : 100;
-                String category = p.length > 4 ? p[4].trim() : "General";
-                AppStore.productsById.put(id, new Product(id, name, price, stock, category));
-            }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("[DataStore] Warning: could not read " + PRODUCTS_FILE);
+        List<Product> products = productDAO.getAll();
+        for (Product p : products) {
+            AppStore.productsById.put(p.getProductId(), p);
+        }
+        System.out.println("[DataStore] Loaded " + products.size() + " products from database.");
+    }
+
+    /**
+     * Persists all current in-memory products to the database.
+     * Used at shutdown and after stock changes.
+     */
+    public static void saveProducts() {
+        for (Product p : AppStore.productsById.values()) {
+            productDAO.update(p);
         }
     }
 
-    private static void saveProducts() {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(PRODUCTS_FILE))) {
-            pw.println("productId,name,price,stock,category");
-            for (Product p : AppStore.productsById.values())
-                pw.println(p.getProductId() + "," + p.getProductName() + "," +
-                           p.getPrice() + "," + p.getStock() + "," + p.getCategory());
-        } catch (IOException e) {
-            System.out.println("[DataStore] Warning: could not write " + PRODUCTS_FILE);
-        }
+    /**
+     * Saves a single product to the database (INSERT).
+     * Used when seeding initial products.
+     */
+    public static void saveProduct(Product p) {
+        productDAO.save(p);
     }
+
+    /**
+     * Updates a single product in the database (UPDATE).
+     * Call this after any stock change.
+     */
+    public static void updateProduct(Product p) {
+        productDAO.update(p);
+    }
+
+    // =========================================================================
+    // CUSTOMERS
+    // =========================================================================
 
     private static void loadCustomers() {
-        File f = new File(CUSTOMERS_FILE);
-        if (!f.exists()) return;
-        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-            String line; boolean header = true;
-            while ((line = br.readLine()) != null) {
-                if (header) { header = false; continue; }
-                if (line.trim().isEmpty()) continue;
-                String[] p = line.split(",", -1);
-                if (p.length < 5) continue;
-                int    id    = Integer.parseInt(p[0].trim());
-                Customer c = new Customer(id, p[1].trim(), p[2].trim(), p[3].trim(), p[4].trim());
-                AppStore.allCustomers.add(c);
-                AppStore.customerOrders.put(id, new ArrayList<>());
-            }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("[DataStore] Warning: could not read " + CUSTOMERS_FILE);
+        List<Customer> customers = customerDAO.getAll();
+        for (Customer c : customers) {
+            AppStore.allCustomers.add(c);
+            AppStore.customerOrders.put(c.getCustomerId(), new ArrayList<>());
         }
+        System.out.println("[DataStore] Loaded " + customers.size() + " customers from database.");
     }
 
-    private static void saveCustomers() {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(CUSTOMERS_FILE))) {
-            pw.println("customerId,name,email,phone,address");
-            for (Customer c : AppStore.allCustomers)
-                pw.println(c.getCustomerId() + "," + c.getName() + "," + c.getEmail() +
-                           "," + c.getPhone() + "," + c.getAddress());
-        } catch (IOException e) {
-            System.out.println("[DataStore] Warning: could not write " + CUSTOMERS_FILE);
-        }
+    /**
+     * Saves a newly registered customer to the database (INSERT).
+     */
+    public static void saveCustomer(Customer c) {
+        customerDAO.save(c);
     }
+
+    // =========================================================================
+    // ORDERS
+    // =========================================================================
 
     private static void loadOrders() {
-        File f = new File(ORDERS_FILE);
-        if (!f.exists()) return;
-        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-            String line; boolean header = true;
-            while ((line = br.readLine()) != null) {
-                if (header) { header = false; continue; }
-                if (line.trim().isEmpty()) continue;
-                String[] p = line.split(",", -1);
-                if (p.length < 6) continue;
-                int         orderId    = Integer.parseInt(p[0].trim());
-                int         customerId = Integer.parseInt(p[1].trim());
-                int         productId  = Integer.parseInt(p[2].trim());
-                int         quantity   = Integer.parseInt(p[3].trim());
-                String      payment    = p[4].trim();
-                OrderStatus status     = OrderStatus.valueOf(p[5].trim());
-                Customer customer = findCustomerById(customerId);
-                Product  product  = AppStore.productsById.get(productId);
-                if (customer == null || product == null) continue;
-                Order o = new Order(orderId, customer, product, quantity, payment, status);
-                AppStore.customerOrders.computeIfAbsent(customerId, k -> new ArrayList<>()).add(o);
-            }
-        } catch (IOException | IllegalArgumentException e) {
-            System.out.println("[DataStore] Warning: could not read " + ORDERS_FILE);
+        // Products and customers must already be loaded into AppStore before this runs
+        List<Order> orders = orderDAO.getAll();
+        for (Order o : orders) {
+            AppStore.customerOrders
+                    .computeIfAbsent(o.getCustomerId(), k -> new ArrayList<>())
+                    .add(o);
         }
+        System.out.println("[DataStore] Loaded " + orders.size() + " orders from database.");
     }
 
-    private static void saveOrders() {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(ORDERS_FILE))) {
-            pw.println("orderId,customerId,productId,quantity,paymentMethod,status");
-            for (List<Order> orders : AppStore.customerOrders.values())
-                for (Order o : orders)
-                    pw.println(o.getOrderId() + "," + o.getCustomerId() + "," +
-                               o.getProductId() + "," + o.getQuantity() + "," +
-                               o.getPaymentMethod() + "," + o.getStatus());
-        } catch (IOException e) {
-            System.out.println("[DataStore] Warning: could not write " + ORDERS_FILE);
-        }
+    /**
+     * Saves a newly placed order to the database (INSERT).
+     */
+    public static void saveOrder(Order o) {
+        orderDAO.save(o);
     }
+
+    /**
+     * Updates an existing order in the database (e.g. status change).
+     */
+    public static void updateOrder(Order o) {
+        orderDAO.update(o);
+    }
+
+    /**
+     * Deletes a cancelled order from the database.
+     */
+    public static void deleteOrder(int orderId) {
+        orderDAO.delete(orderId);
+    }
+
+    // =========================================================================
+    // COUNTERS — derive next IDs from the database instead of a file
+    // =========================================================================
 
     private static void loadCounters() {
-        File f = new File(COUNTERS_FILE);
-        if (!f.exists()) return;
-        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split("=", 2);
-                if (parts.length < 2) continue;
-                switch (parts[0].trim()) {
-                    case "nextCustomerId": AppStore.nextCustomerId = Integer.parseInt(parts[1].trim()); break;
-                    case "nextOrderId":    AppStore.nextOrderId    = Integer.parseInt(parts[1].trim()); break;
-                }
-            }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("[DataStore] Warning: could not read " + COUNTERS_FILE);
+        // Derive nextCustomerId from the highest existing customer_id + 1
+        List<Customer> customers = new ArrayList<>(AppStore.allCustomers);
+        int maxCustomerId = 0;
+        for (Customer c : customers) {
+            if (c.getCustomerId() > maxCustomerId) maxCustomerId = c.getCustomerId();
         }
-    }
+        AppStore.nextCustomerId = maxCustomerId + 1;
 
-    private static void saveCounters() {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(COUNTERS_FILE))) {
-            pw.println("nextCustomerId=" + AppStore.nextCustomerId);
-            pw.println("nextOrderId="    + AppStore.nextOrderId);
-        } catch (IOException e) {
-            System.out.println("[DataStore] Warning: could not write " + COUNTERS_FILE);
+        // Derive nextOrderId from the highest existing order_id + 1
+        List<Order> allOrders = new ArrayList<>();
+        for (List<Order> list : AppStore.customerOrders.values()) allOrders.addAll(list);
+        int maxOrderId = 0;
+        for (Order o : allOrders) {
+            if (o.getOrderId() > maxOrderId) maxOrderId = o.getOrderId();
         }
-    }
+        AppStore.nextOrderId = maxOrderId + 1;
 
-    private static Customer findCustomerById(int id) {
-        for (Customer c : AppStore.allCustomers)
-            if (c.getCustomerId() == id) return c;
-        return null;
+        System.out.println("[DataStore] Next customer ID: " + AppStore.nextCustomerId);
+        System.out.println("[DataStore] Next order ID:    " + AppStore.nextOrderId);
     }
 }

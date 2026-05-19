@@ -1,0 +1,341 @@
+/* ============================================================
+   dark.css  —  Customer Order Management System
+   Dark charcoal theme, single blue accent, minimal & clean
+   ============================================================ */
+
+/* ── Colour palette (as comments for reference) ─────────────
+   Background base  : #1a1a2e
+   Surface / card   : #16213e
+   Surface raised   : #0f3460
+   Border           : #2a2a4a
+   Text primary     : #e0e0e0
+   Text secondary   : #9090a8
+   Accent blue      : #4a90d9
+   Accent hover     : #5ba3f0
+   Success green    : #4caf7d
+   Danger red       : #c0392b
+   Danger hover     : #e74c3c
+   Muted action     : #3a3a5c
+   Muted hover      : #4a4a6c
+   ──────────────────────────────────────────────────────── */
+
+/* ── Root / scene background ─────────────────────────────── */
+.root {
+    -fx-background-color: #1a1a2e;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* ── Page wrapper (top-level VBox on every screen) ────────── */
+.page {
+    -fx-background-color: #1a1a2e;
+    -fx-padding: 36 44 36 44;
+    -fx-spacing: 0;
+}
+
+/* ── Page title ──────────────────────────────────────────── */
+.page-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 0 0 6 0;
+}
+
+/* ── Section subtitle / hint text ───────────────────────── */
+.subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #9090a8;
+}
+
+/* ── Divider spacer ──────────────────────────────────────── */
+.spacer-sm  { -fx-min-height: 8;  -fx-pref-height: 8;  }
+.spacer-md  { -fx-min-height: 18; -fx-pref-height: 18; }
+.spacer-lg  { -fx-min-height: 30; -fx-pref-height: 30; }
+
+/* ── Card container (used on dashboards) ─────────────────── */
+.card {
+    -fx-background-color: #16213e;
+    -fx-background-radius: 6;
+    -fx-border-color: #2a2a4a;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-padding: 28 32 28 32;
+    -fx-spacing: 14;
+}
+
+/* ── Text inputs & password fields ──────────────────────── */
+.text-field,
+.password-field {
+    -fx-background-color: #16213e;
+    -fx-border-color: #2a2a4a;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-text-fill: #e0e0e0;
+    -fx-prompt-text-fill: #5a5a7a;
+    -fx-padding: 8 12 8 12;
+    -fx-pref-height: 36;
+}
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #4a90d9;
+    -fx-background-color: #1e2d50;
+}
+
+/* ── ComboBox ────────────────────────────────────────────── */
+.combo-box {
+    -fx-background-color: #16213e;
+    -fx-border-color: #2a2a4a;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-pref-height: 36;
+}
+.combo-box .list-cell {
+    -fx-text-fill: #e0e0e0;
+    -fx-background-color: transparent;
+}
+.combo-box-popup .list-view {
+    -fx-background-color: #16213e;
+    -fx-border-color: #2a2a4a;
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #16213e;
+    -fx-padding: 6 12;
+}
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #1e2d50;
+}
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+.combo-box .arrow {
+    -fx-background-color: #9090a8;
+}
+.combo-box:focused {
+    -fx-border-color: #4a90d9;
+}
+
+/* ── Buttons — base ──────────────────────────────────────── */
+.button {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-padding: 8 20 8 20;
+    -fx-border-width: 0;
+}
+
+/* Primary (blue accent) */
+.btn-primary {
+    -fx-background-color: #4a90d9;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+.btn-primary:hover {
+    -fx-background-color: #5ba3f0;
+}
+.btn-primary:pressed {
+    -fx-background-color: #3a7bc8;
+}
+
+/* Secondary / muted action */
+.btn-secondary {
+    -fx-background-color: #2a2a4a;
+    -fx-text-fill: #c0c0d8;
+    -fx-font-weight: normal;
+}
+.btn-secondary:hover {
+    -fx-background-color: #3a3a5c;
+}
+.btn-secondary:pressed {
+    -fx-background-color: #1e1e38;
+}
+
+/* Success (confirm / pay) */
+.btn-success {
+    -fx-background-color: #4caf7d;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+.btn-success:hover {
+    -fx-background-color: #5dc48e;
+}
+.btn-success:pressed {
+    -fx-background-color: #3a9a6a;
+}
+
+/* Danger (cancel / logout / delete) */
+.btn-danger {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+.btn-danger:hover {
+    -fx-background-color: #e74c3c;
+}
+.btn-danger:pressed {
+    -fx-background-color: #a93226;
+}
+
+/* Ghost / back link */
+.btn-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: #9090a8;
+    -fx-underline: false;
+    -fx-padding: 6 0 6 0;
+    -fx-font-size: 12px;
+}
+.btn-ghost:hover {
+    -fx-text-fill: #c0c0d8;
+}
+
+/* Dashboard nav buttons — wider, taller */
+.btn-nav {
+    -fx-background-color: #16213e;
+    -fx-text-fill: #c8d8f0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-color: #2a2a4a;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 12 24 12 24;
+    -fx-pref-width: 280;
+    -fx-pref-height: 46;
+    -fx-alignment: CENTER;
+    -fx-cursor: hand;
+}
+.btn-nav:hover {
+    -fx-background-color: #1e2d50;
+    -fx-border-color: #4a90d9;
+    -fx-text-fill: #e8f0ff;
+}
+.btn-nav:pressed {
+    -fx-background-color: #0f1e38;
+}
+
+/* ── Labels ──────────────────────────────────────────────── */
+.label {
+    -fx-text-fill: #e0e0e0;
+}
+.lbl-muted {
+    -fx-text-fill: #9090a8;
+    -fx-font-size: 12px;
+}
+.lbl-success {
+    -fx-text-fill: #4caf7d;
+    -fx-font-size: 12px;
+}
+.lbl-error {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 12px;
+}
+.lbl-form {
+    -fx-text-fill: #b0b8cc;
+    -fx-font-size: 13px;
+    -fx-min-width: 90;
+}
+
+/* ── TableView ───────────────────────────────────────────── */
+.table-view {
+    -fx-background-color: #16213e;
+    -fx-border-color: #2a2a4a;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-table-cell-border-color: transparent;
+}
+.table-view .column-header-background {
+    -fx-background-color: #0f3460;
+}
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: #0f3460;
+    -fx-border-color: transparent;
+    -fx-size: 36;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #c8d8f0;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 8 0 8;
+}
+.table-view .table-row-cell {
+    -fx-background-color: #16213e;
+    -fx-border-color: transparent transparent #1e2a42 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 34px;
+}
+.table-view .table-row-cell:odd {
+    -fx-background-color: #1a2540;
+}
+.table-view .table-row-cell:selected {
+    -fx-background-color: #1e3a6e;
+}
+.table-view .table-row-cell:hover {
+    -fx-background-color: #1e2d50;
+}
+.table-view .table-cell {
+    -fx-text-fill: #d0d8e8;
+    -fx-font-size: 12px;
+    -fx-padding: 0 8 0 8;
+    -fx-alignment: CENTER_LEFT;
+}
+/* Remove default focus ring */
+.table-view:focused {
+    -fx-border-color: #2a2a4a;
+}
+/* Scrollbar inside table */
+.table-view .scroll-bar:vertical,
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: #16213e;
+}
+.table-view .scroll-bar .thumb {
+    -fx-background-color: #2a2a4a;
+    -fx-background-radius: 4;
+}
+.table-view .scroll-bar .thumb:hover {
+    -fx-background-color: #4a90d9;
+}
+
+/* ── Separator ───────────────────────────────────────────── */
+.separator .line {
+    -fx-border-color: #2a2a4a;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* ── HBox toolbar row ────────────────────────────────────── */
+.toolbar {
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 4 0;
+}
+
+/* ── Form grid ───────────────────────────────────────────── */
+.form-grid {
+    -fx-hgap: 14;
+    -fx-vgap: 12;
+    -fx-alignment: CENTER;
+}
+
+/* ── Cart total label ────────────────────────────────────── */
+.lbl-total {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* ── Info / accent text ──────────────────────────────────── */
+.lbl-info {
+    -fx-text-fill: #4a90d9;
+    -fx-font-size: 12px;
+}
+
+/* ── Section divider label ───────────────────────────────── */
+.section-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #9090a8;
+    -fx-padding: 10 0 4 0;
+}
