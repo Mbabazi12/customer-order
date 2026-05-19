@@ -1,32 +1,35 @@
 package controller;
 
-import service.AppStore;
-import app.MainApp;
-import model.Customer;
-import model.Product;
-import model.Order;
-import exception.InvalidOrderException;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
 import java.util.ArrayList;
 
+import app.MainApp;
+import exception.InvalidOrderException;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import model.Customer;
+import model.Order;
+import model.Product;
+import service.AppStore;
+import service.DataStore;
+
+/**
+ * Legacy single-item order placement screen.
+ * The primary ordering flow now goes through ProductMenu → Cart → CartController.
+ * This controller is kept for backward compatibility and is still reachable
+ * from the customer dashboard if needed.
+ */
 public class OrderController {
 
-    @FXML private TextField tfProductId, tfQuantity;
+    @FXML private TextField    tfProductId, tfQuantity;
     @FXML private ComboBox<String> cbPayment;
-    @FXML private Label lblSummary, lblError;
+    @FXML private Label        lblSummary, lblError;
 
     @FXML
     public void initialize() {
         cbPayment.getItems().addAll("Cash", "Credit Card", "Debit Card", "Mobile Payment", "Bank Transfer");
         cbPayment.setValue("Cash");
-
-        // Pre-fill from cart if product was selected in ProductMenu
-        if (ProductController.selectedProduct != null) {
-            tfProductId.setText(String.valueOf(ProductController.selectedProduct.getProductId()));
-            tfQuantity.setText(String.valueOf(ProductController.selectedQty));
-        }
     }
 
     @FXML
@@ -50,19 +53,16 @@ public class OrderController {
                     .add(o);
             p.setStock(p.getStock() - qty);
 
-            // Clear cart
-            ProductController.selectedProduct = null;
-            ProductController.selectedQty     = 0;
+            DataStore.saveOrder(o);
+            DataStore.updateProduct(p);
 
-            lblSummary.setText("✔ Order #" + o.getOrderId() + " placed! Total: " +
-                               String.format("%.2f", o.calculateTotal()));
+            lblSummary.setText("Order #" + o.getOrderId() + " placed! Total: "
+                + String.format("%.2f", o.calculateTotal()));
             AlertHelper.showSuccess("Order Placed",
-                "Order #" + o.getOrderId() + " placed successfully!\nTotal: " +
-                String.format("%.2f", o.calculateTotal()));
+                "Order #" + o.getOrderId() + " placed successfully!\nTotal: "
+                + String.format("%.2f", o.calculateTotal()));
 
         } catch (InvalidOrderException e) {
-            lblError.setText(e.getMessage());
-        } catch (NumberFormatException e) {
             lblError.setText(e.getMessage());
         }
     }

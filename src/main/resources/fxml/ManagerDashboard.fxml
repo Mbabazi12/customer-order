@@ -3,30 +3,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.ManagerDashboardController"
-      alignment="CENTER" spacing="14"
-      prefWidth="420" prefHeight="480"
-      style="-fx-background-color: #1e1e2e; -fx-padding: 36;">
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="controller.ManagerDashboardController"
+           styleClass="page">
 
-    <Label text="⚙ Manager Dashboard"
-           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #cdd6f4;"/>
+    <VBox alignment="CENTER" spacing="0" maxWidth="360">
 
-    <Region prefHeight="8"/>
+        <Label text="Manager Dashboard" styleClass="page-title"
+               style="-fx-font-size: 24px;"/>
+        <Label text="Select an action below" styleClass="subtitle"
+               style="-fx-padding: 4 0 28 0;"/>
 
-    <Button text="👥  View All Customers"   onAction="#onViewCustomers"   prefWidth="260" prefHeight="40"
-            style="-fx-background-color: #89b4fa; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
-    <Button text="📦  View All Orders"      onAction="#onViewOrders"      prefWidth="260" prefHeight="40"
-            style="-fx-background-color: #cba6f7; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
-    <Button text="🏪  View Stock"           onAction="#onViewStock"       prefWidth="260" prefHeight="40"
-            style="-fx-background-color: #a6e3a1; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
-    <Button text="🔍  Search Customer"      onAction="#onSearchCustomer"  prefWidth="260" prefHeight="40"
-            style="-fx-background-color: #f9e2af; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
-    <Button text="🔄  Update Order Status"  onAction="#onUpdateStatus"    prefWidth="260" prefHeight="40"
-            style="-fx-background-color: #fab387; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 8;"/>
+        <VBox spacing="10" alignment="CENTER">
+            <Button text="View All Customers"  onAction="#onViewCustomers"  styleClass="btn-nav"/>
+            <Button text="Manage Orders"       onAction="#onViewOrders"     styleClass="btn-nav"/>
+            <Button text="View Stock"          onAction="#onViewStock"      styleClass="btn-nav"/>
+        </VBox>
 
-    <Region prefHeight="6"/>
+        <Region styleClass="spacer-lg"/>
 
-    <Button text="Logout" onAction="#onLogout" prefWidth="120"
-            style="-fx-background-color: #f38ba8; -fx-font-size: 12px; -fx-background-radius: 6;"/>
-</VBox>
+        <Button text="Logout" onAction="#onLogout"
+                styleClass="btn-danger" prefWidth="120"/>
+
+    </VBox>
+</StackPane>
